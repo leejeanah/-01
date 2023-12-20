@@ -1,0 +1,17 @@
+import pandas as pd
+import plotly.express as px
+import streamlit as st
+
+titanic_data = pd.read_csv('titanic.csv')
+
+st.title('타이타닉 데이터 변수 간 상관 관계 시각화')
+
+correlation_matrix = titanic_data.corr()
+
+fig = px.imshow(correlation_matrix, labels=dict(color="Correlation"), x=correlation_matrix.index, y=correlation_matrix.columns)
+fig.update_layout(title='데이터 변수 간 상관 관계', width=800, height=600)
+
+st.plotly_chart(fig)
+
+if st.checkbox('데이터프레임 보기'):
+    st.write(correlation_matrix)
